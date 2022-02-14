@@ -1,0 +1,265 @@
+/*Write a Java program to create an abstract class named Shape that contains two integers and an empty method named
+print Area (). Provide three classes named Rectangle, Triangle, and Circle such that each one of the classes extends the
+class Shape. Each one of the classes contains only the method print Area () that prints the area of the given shape.*/
+
+
+import java.util.*;
+abstract class Shape
+{
+    double a,b;
+    abstract void printArea();
+}
+class Rectangle extends Shape
+{
+    void printArea()
+    {
+        System.out.println("Area of Rectangle: "+(a*b));
+    }
+}
+class Triangle extends Shape
+{
+    void printArea()
+    {
+        System.out.println("Area of Rectangle: "+(0.5*a*b));
+    }
+}
+class Circle extends Shape
+{
+    void printArea()
+    {
+        System.out.println("Area of Rectangle: "+(a*b*b));
+    }
+}
+public class AbstractShapes
+{
+    public static void main(String[] args) {
+        Rectangle r=new Rectangle();
+        r.a=2.0;
+        r.b=6.0;
+        r.printArea();
+        Triangle t=new Triangle();
+        t.a=2.0;
+        t.b=6.0;
+        t.printArea();
+        Circle c=new Circle();
+        c.a=3.14;
+        c.b=8.0;
+        c.printArea();
+    }
+}
+
+--------------------------------------------------------------------------------------------------
+
+/*Write a Java program that implements Bubble sort algorithm for sorting in descending order and also shows the number
+of inter change so occurred for the given set of integers.*/
+
+//import java.lang.*;
+public class BubbleSort
+{
+    public static void main(String[] args)
+    {
+
+        int [] arr = {2,4,1,3,5};
+        int n=5,i,j,temp;
+        System.out.println("Input Elements: ");
+        for (i=0;i<n;i++)
+        {
+            System.out.println(arr[i]);
+
+        }
+        System.out.println("Sorting the elements using Bubble Sort...");
+        for (i=0;i<(n-1); i++)
+        {
+            for(j=0;j<(n-i-1);j++)
+            {
+                if(arr[j]>arr[j+1])
+                {
+                    temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+            }
+        }
+        for(i=0;i<n;i++)
+        {
+            System.out.println(arr[i]);
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------------------------
+/*Write a Java program for the following: Create a doubly linked list of elements. Delete a given element from the above
+list. Display the contents of the list after deletion*/
+
+import java.util.*;
+public class DoubleLinkedList
+{
+    static Node head = null;
+    class Node
+    {
+        int data;
+        Node next,prev;
+        Node(int val)
+        {
+            data=val;
+            next=prev=null;
+        }
+    }
+    void push(Node head_ref,int new_data)
+    {
+        Node newNode = new Node(new_data);
+        newNode.prev=null;
+        newNode.next=(head);
+        if((head)!=null)
+        {
+            (head).prev=newNode;
+        }
+        (head)=newNode;
+    }
+    void delete(Node head_ref,Node del)
+    {
+        if (head==null || del==null)
+        {
+            return;
+        }
+        if(head==del)
+        {
+            head=del.next;
+        }
+        if (del.next!=null)
+        {
+            del.next.prev=del.prev;
+        }
+        if (del.prev!=null)
+        {
+            del.prev.next=del.next;
+        }
+        return;
+    }
+    void printList(Node node)
+    {
+        while (node!=null)
+        {
+            System.out.println(node.data+" ");
+            node=node.next;
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        DoubleLinkedList dll = new DoubleLinkedList();
+        dll.push(head,0);
+        dll.push(head,1);
+        dll.push(head,2);
+        dll.push(head,3);
+        System.out.println("Double Linked List after pushing elements: ");
+        dll.printList(head);
+        dll.delete(head,head);
+        dll.delete(head,head.next);
+        dll.delete(head,head.next);
+        System.out.println("Double linked list after deleting elements: ");
+        dll.printList(head);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------
+/*Write a Java program the implement’s Quicksort algorithm for sorting a list of names in ascending order.*/
+
+public class QuickSort
+{
+    public static void main(String[] args)
+    {
+        int [] arr = {2,4,1,3,5};
+        int i,n=5;
+        System.out.println("Input Elements: ");
+        for (i=0;i<n;i++)
+        {
+            System.out.println(arr[i]);
+        }
+        quicksort(arr,0,4);
+        System.out.println("Input Elements: ");
+        for (i=0;i<n;i++)
+        {
+            System.out.println(arr[i]);
+        }
+    }
+
+    static void quicksort(int [] arr,int beg,int end)
+    {
+        int loc;
+        if(beg<end)
+        {
+            loc=partition(arr,beg,end);
+            quicksort(arr, beg, loc-1);
+            quicksort(arr, loc+1, end);
+        }
+    }
+
+    public static int partition(int [] arr,int beg,int end)
+    {
+        int left,right,temp,loc,flag;
+        loc=left=beg;
+        right=end;
+        flag=0;
+        while (flag!=1)
+        {
+            while ((arr[loc] <=arr[right]) && (loc!=right)) {
+                right--;
+                if (loc == right)
+                    flag = 1;
+                else if (arr[loc] > arr[right]) {
+                    temp = arr[loc];
+                    arr[loc] = arr[right];
+                    arr[right] = temp;
+                    loc = right;
+                }
+
+                if (flag != 1) {
+                    while ((arr[loc] >= arr[left] && (loc != left))) {
+                        left++;
+                        if (loc == left) {
+                            flag = 1;
+                        } else if (arr[loc] < arr[left]) {
+                            temp = arr[loc];
+                            arr[loc] = arr[left];
+                            arr[left] = temp;
+                            loc = left;
+                        }
+                    }
+                }
+            }
+        }
+        return loc;
+    }
+
+
+}
+---------------------------------------------------------------------------------------------------------
+/*Write a Java program to list all the files in a directory including the files present in all its subdirectories.*/
+import java.io.*;
+public class Files
+{
+    private static void listFiles(String Path)
+    {
+        File f=new File(Path);
+        File[] F=f.listFiles();
+        for (File file:F)
+        {
+            if (file.isFile())
+            {
+                System.out.println(file.getName());
+            }
+            else if (file.isDirectory())
+            {
+                System.out.println(file.getAbsolutePath());
+                listFiles(file.getAbsolutePath());
+            }
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        listFiles("D:/K.V.N.Aditya/B.Tech/CMRTC/Data Science/Lab/OOPs through Java/");
+    }
+}
+---------------------------------------------------------------------------------------------------------
